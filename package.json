@@ -1,0 +1,10 @@
+{
+  "name": "mcrp-bot",
+  "version": "1.0.0",
+  "description": "Moon City RP Official Discord Bot",
+  "main": "src/app.js",
+  "type": "module",
+  "scripts": {"start":"node src/app.js"},
+  "engines": {"node": ">=20.10.0"},
+  "dependencies": {"discord.js":"^14.26.4","dotenv":"^17.2.3","express":"^5.1.0"}
+}
