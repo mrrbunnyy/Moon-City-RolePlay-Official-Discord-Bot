@@ -161,10 +161,13 @@ client.on('interactionCreate', async i=>{
     }
 
     if(i.isButton() && (i.customId==='mcrp_leader'||i.customId==='mcrp_curator')){
-      const type=i.customId==='mcrp_leader'?'leader':'curator';
-      formState.set(formStateKey(i,type),{});
-      return i.reply(formSelectionPanel(type,{}));
-    }
+  const type=i.customId==='mcrp_leader'?'leader':'curator';
+  formState.set(formStateKey(i,type),{});
+  return i.reply({
+    ...formSelectionPanel(type,{}),
+    ephemeral:true
+  });
+}
     if(i.isUserSelectMenu() && i.customId.startsWith('mcrp_form_user:')){
       const type=i.customId.split(':')[1], key=formStateKey(i,type), state=formState.get(key)||{}; state.userId=i.values[0]; formState.set(key,state);
       return i.update(formSelectionPanel(type,state));
@@ -208,7 +211,13 @@ client.on('interactionCreate', async i=>{
       const vars={user:member.toString(),organization:roleLabel(org),organization2:roleLabel(org2),text,description};
       const channelId=type==='leader'?d.setup.leaderChannelId:d.setup.curatorChannelId, ch=i.guild.channels.cache.get(channelId);
       if(!ch?.isTextBased()) return i.reply({content:'❌ Announcement channel is not configured.',ephemeral:true});
-      await ch.send(render(d.templates[key],vars)); formState.delete(formStateKey(i,type)); await i.reply({content:'✅ Action processed and announcement sent.',ephemeral:true}); return log(i.guild,`${type} action`,`${action} | ${member.user.tag} | ${org.name}${org2?' → '+org2.name:''} | By ${i.user.tag}`);
+      await ch.send(render(d.templates[key],vars));
+formState.delete(formStateKey(i,type));
+
+await i.reply({
+  content:'✅ Action processed and announcement sent.',
+  ephemeral:true
+}); return log(i.guild,`${type} action`,`${action} | ${member.user.tag} | ${org.name}${org2?' → '+org2.name:''} | By ${i.user.tag}`);
     }
   } catch(e) {
     console.error(e); if(i.isRepliable()&&!i.replied&&!i.deferred) await i.reply({content:'❌ Something went wrong. Check the bot console/log channel.',ephemeral:true}).catch(()=>{}); if(i.guild) await log(i.guild,'Error',e.message);
