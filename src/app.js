@@ -42,7 +42,7 @@ const log = async (guild, action, details='') => {
     {name:'Time',value:`<t:${Math.floor(Date.now()/1000)}:F>`,inline:false}
   ); try { await ch.send({embeds:[e]}); } catch {}
 };
-const admin = i => i.memberPermissions?.has(PermissionFlagsBits.Administrator);
+const admin = i => i.memberPermissions?.has(PermissionFlagsBits.Administrator) || i.member?.permissions?.has(PermissionFlagsBits.Administrator);
 const mention = id => `<@${id}>`;
 const render = (s, vars) => String(s).replaceAll('{user}',vars.user||'').replaceAll('{organization}',vars.organization||'').replaceAll('{organization2}',vars.organization2||'').replaceAll('{text}',vars.text||'').replaceAll('{description}',vars.description||'');
 const roleLabel = (r) => r ? `<@&${r.id}>` : 'Not selected';
