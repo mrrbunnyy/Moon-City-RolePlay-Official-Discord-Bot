@@ -53,7 +53,7 @@ client.commands = new Collection();
 function command(data, execute) { client.commands.set(data.name, {data, execute}); }
 
 command(new SlashCommandBuilder().setName('help').setDescription('Show Moon City RP bot help'), async i => {
-  await i.reply({content:'# 🌙 **MOON CITY RP**\n\n***👋 Hello! I’m the Moon City RP Bot***.\n\n**__Join official server__**\nhttps://discord.gg/T7HGpNb3kn\n\n🌃 **Welcome to Moon City RP — Your City, Your Roleplay.**\n\n━━━━━━━━━━━━━━━━━━\n 💙 **MCRP • Moon City RolePlay**\n\n**Commands:** `/help` `/announce` `/log-set` `/mcrp-lock` `/afk` `/auto-tag`\n**Admin setup:** `!MCRP-MCRP` `!MCRP-EDIT` `!MCRP-DELETE` `!MCRP-LOCK` `!MCRP-UNLOCK` `!lock-role` `!unlock-role`',ephemeral:true});
+  await i.reply({content:'**━━━━━━━━━━━━━━━━━━━━\n🌙 MOON CITY RP\nOFFICIAL BOT\n\n🌐 OFFICIAL SERVER\nhttps://discord.gg/T7HGpNb3kn\n\n🏙️ MCRP • YOUR CITY. YOUR STORY.\n━━━━━━━━━━━━━━━━━━━━\n\n__MCRP BOT • BY BUNNY__\n**',ephemeral:true});
 });
 command(new SlashCommandBuilder().setName('announce').setDescription('Send an announcement').addChannelOption(o=>o.setName('channel').setDescription('Announcement channel').addChannelTypes(ChannelType.GuildText).setRequired(true)).addStringOption(o=>o.setName('message').setDescription('Announcement message').setRequired(true)), async i=>{
   if(!admin(i)) return i.reply({content:'❌ Administrator permission required.',ephemeral:true});
