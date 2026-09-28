@@ -231,7 +231,7 @@ client.on('messageCreate', async msg=>{
   if(BUNNY_ID && msg.author.id===BUNNY_ID && d.afk){d.afk=null; save(); await log(msg.guild,'AFK disabled','Bunny sent a normal message.');}
   // Bunny tag notification
   if(BUNNY_ID && d.afk && msg.mentions.users.has(BUNNY_ID)){
-    await msg.reply('Bunny is AFK. Please do not tag Bunny again.\n ${d.afk.reason}').catch(()=>{});
+    await msg.reply(`Bunny is AFK. Please do not tag Bunny again.\n${d.afk.reason}`).catch(()=>{});
     const bunny=await client.users.fetch(BUNNY_ID).catch(()=>null); if(bunny) await bunny.send(`🔔 You were tagged by **${msg.author.tag}** in **#${msg.channel.name}** while AFK.\nReason: ${d.afk.reason}`).catch(()=>{});
   }
   // Welcome once per member for hello/hi/hey
